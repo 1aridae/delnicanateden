@@ -1,7 +1,8 @@
 var startDate = new Date("2024-09-02");
 var today = Date.now();
+var naslnakup = new Date();
 
-var nlbr = 121.0;
+var nlbr = 127.0;
 
 function trenutniTeden() {
   var diff = today - startDate;
@@ -13,7 +14,7 @@ function trenutniTeden() {
 }
 
 function vrednostPortfelja() {
-  var vrednost = 7 * nlbr;
+  var vrednost = 8 * nlbr;
   var vrednostText = vrednost.toLocaleString("de-DE", {
     minimumFractionDigits: 1,
     maximumFractionDigits: 1,
@@ -24,5 +25,14 @@ function vrednostPortfelja() {
   );
 }
 
+function naslednjiNakup() {
+  naslnakup.setDate(naslnakup.getDate() + ((1 + 7 - naslnakup.getDay()) % 7));
+  var naslnakupText = naslnakup.toLocaleDateString("de-DE")
+    $("#portfelj > div > div > div:nth-child(4) > div > div.card-body > h1").text(naslnakupText)
+}
+
 trenutniTeden();
 vrednostPortfelja();
+naslednjiNakup();
+
+
