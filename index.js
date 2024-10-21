@@ -7,6 +7,7 @@ function trenutniTeden() {
   var diff = today - startDate;
   var diffcweeks = Math.ceil(diff / 1000 / 60 / 60 / 24 / 7);
   var sdiffcweeks = diffcweeks + "/" + "52";
+  
   $("#portfelj > div > div > div:nth-child(1) > div > div.card-body > h1").text(
     sdiffcweeks
   );
@@ -28,6 +29,7 @@ function naslednjiNakup() {
   var naslnakup = new Date();
   naslnakup.setDate(naslnakup.getDate() + ((1 + 7 - naslnakup.getDay()) % 7));
   var naslnakupText = naslnakup.toLocaleDateString("de-DE");
+
   $("#portfelj > div > div > div:nth-child(4) > div > div.card-body > h1").text(
     naslnakupText
   );
