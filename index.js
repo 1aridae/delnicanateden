@@ -1,6 +1,5 @@
 var startDate = new Date("2024-09-02");
 var today = Date.now();
-var naslnakup = new Date();
 
 var nlbr = 127.0;
 
@@ -26,13 +25,14 @@ function vrednostPortfelja() {
 }
 
 function naslednjiNakup() {
+  var naslnakup = new Date();
   naslnakup.setDate(naslnakup.getDate() + ((1 + 7 - naslnakup.getDay()) % 7));
-  var naslnakupText = naslnakup.toLocaleDateString("de-DE")
-    $("#portfelj > div > div > div:nth-child(4) > div > div.card-body > h1").text(naslnakupText)
+  var naslnakupText = naslnakup.toLocaleDateString("de-DE");
+  $("#portfelj > div > div > div:nth-child(4) > div > div.card-body > h1").text(
+    naslnakupText
+  );
 }
 
 trenutniTeden();
 vrednostPortfelja();
 naslednjiNakup();
-
-
