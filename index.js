@@ -1,7 +1,8 @@
 var startDate = new Date("2024-09-02");
 var today = Date.now();
 
-var nlbr = 127.5;
+var nlbr = 132.5;
+var krka = 137;
 
 function trenutniTeden() {
   var diff = today - startDate;
@@ -14,7 +15,7 @@ function trenutniTeden() {
 }
 
 function vrednostPortfelja() {
-  var vrednost = 10 * nlbr;
+  var vrednost = 10 * nlbr + 1 * krka;
   var vrednostText = vrednost.toLocaleString("de-DE", {
     minimumFractionDigits: 1,
     maximumFractionDigits: 1,
