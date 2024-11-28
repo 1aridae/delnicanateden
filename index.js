@@ -1,14 +1,14 @@
 var startDate = new Date("2024-09-02");
 var today = Date.now();
 
-var nlbr = 129.5;
-var krka = 138.5;
+var nlbr = 130.5;
+var krka = 138.0;
 
 function trenutniTeden() {
   var diff = today - startDate;
   var diffcweeks = Math.ceil(diff / 1000 / 60 / 60 / 24 / 7);
   var sdiffcweeks = diffcweeks + "/" + "52";
-  
+
   $("#portfelj > div > div > div:nth-child(1) > div > div.card-body > h1").text(
     sdiffcweeks
   );
@@ -36,6 +36,65 @@ function naslednjiNakup() {
   );
 }
 
+function calculatePortfolio(stocks) {
+  let totalStartingValue = 0;
+  let totalWeightedContribution = 0;
+
+  stocks.forEach((stock) => {
+    const startingValue = stock.startingPrice * stock.shares;
+    const endingValue = stock.endingPrice * stock.shares;
+    const endingValueMinusCosts = endingValue - stock.costs;
+
+    const individualReturn = (
+      endingValueMinusCosts / startingValue -
+      1
+    ).toFixed(4);
+
+    totalStartingValue += startingValue;
+    stock.startingValue = startingValue;
+    stock.endingValue = endingValue;
+    stock.endingValueMinusCosts = endingValueMinusCosts;
+    stock.individualReturn = parseFloat(individualReturn);
+  });
+
+  stocks.forEach((stock) => {
+    stock.weight = (stock.startingValue / totalStartingValue).toFixed(4);
+    stock.weightedContribution = (
+      stock.weight * stock.individualReturn
+    ).toFixed(4);
+
+    totalWeightedContribution += parseFloat(stock.weightedContribution);
+  });
+
+  const totalReturn = (totalWeightedContribution * 100).toFixed(2);
+  return totalReturn
+}
+
+const stocks = [
+  {
+    name: "NLB",
+    startingPrice: 123.05,
+    endingPrice: nlbr,
+    shares: 10,
+    costs: 12.3,
+    dividends: 0,
+  },
+  {
+    name: "KRKA",
+    startingPrice: 137.83,
+    endingPrice: krka,
+    shares: 3,
+    costs: 4.2,
+    dividends: 0,
+  },
+];
+
+calculatePortfolio(stocks);
 trenutniTeden();
 vrednostPortfelja();
 naslednjiNakup();
+
+$("#rast-portfelja")
+        .text(calculatePortfolio(stocks) + " %")
+        .css("color", parseFloat(calculatePortfolio(stocks).replace(',', '.')) > 0 ? "green" : "red");
+;
