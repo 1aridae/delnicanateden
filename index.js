@@ -67,7 +67,7 @@ function calculatePortfolio(stocks) {
   });
 
   const totalReturn = (totalWeightedContribution * 100).toFixed(2);
-  return totalReturn
+  return totalReturn;
 }
 
 const stocks = [
@@ -95,6 +95,5 @@ vrednostPortfelja();
 naslednjiNakup();
 
 $("#rast-portfelja")
-        .text(calculatePortfolio(stocks) + " %")
-        .css("color", parseFloat(calculatePortfolio(stocks).replace(',', '.')) > 0 ? "green" : "red");
-;
+  .text(calculatePortfolio(stocks).toString().replace(".", ",") + " %")
+  .css("color", parseFloat(calculatePortfolio(stocks)) > 0 ? "green" : "red");
