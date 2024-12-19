@@ -1,8 +1,8 @@
 var startDate = new Date("2024-09-02");
 var today = Date.now();
 
-var nlbr = 126.50
-var krka = 138.50;
+var nlbr = 127.00
+var krka = 137.50;
 
 function trenutniTeden() {
   var diff = today - startDate;
