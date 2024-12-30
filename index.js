@@ -15,7 +15,7 @@ function trenutniTeden() {
 }
 
 function vrednostPortfelja() {
-  var vrednost = 10 * nlbr + 7 * krka;
+  var vrednost = 10 * nlbr + 8 * krka;
   var vrednostText = vrednost.toLocaleString("de-DE", {
     minimumFractionDigits: 1,
     maximumFractionDigits: 1,
@@ -81,10 +81,10 @@ const stocks = [
   },
   {
     name: "KRKA",
-    startingPrice: 138.21,
+    startingPrice: 138.31,
     endingPrice: krka,
-    shares: 7,
-    costs: 9.8,
+    shares: 8,
+    costs: 11.20,
     dividends: 0,
   },
 ];
