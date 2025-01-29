@@ -2,7 +2,7 @@ var startDate = new Date("2024-09-02");
 var today = Date.now();
 
 var nlbr = 134.0;
-var krka = 159.0;
+var krka = 156.0;
 
 function trenutniTeden() {
   var diff = today - startDate;
@@ -15,7 +15,7 @@ function trenutniTeden() {
 }
 
 function vrednostPortfelja() {
-  var vrednost = 10 * nlbr + 11 * krka;
+  var vrednost = 10 * nlbr + 12 * krka;
   var vrednostText = vrednost.toLocaleString("de-DE", {
     minimumFractionDigits: 1,
     maximumFractionDigits: 1,
@@ -81,10 +81,10 @@ const stocks = [
   },
   {
     name: "KRKA",
-    startingPrice: 139.68,
+    startingPrice: 141.08,
     endingPrice: krka,
-    shares: 11,
-    costs: 15.50,
+    shares: 12,
+    costs: 17.10,
     dividends: 0,
   },
 ];
