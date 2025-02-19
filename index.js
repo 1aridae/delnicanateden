@@ -1,9 +1,9 @@
 var startDate = new Date("2024-09-02");
 var today = Date.now();
 
-var nlbr = 140.0;
-var krka = 163.5;
-var tlsg = 91.0;
+var nlbr = 146.0;
+var krka = 164.0;
+var tlsg = 90.5;
 
 function trenutniTeden() {
   var diff = today - startDate;
@@ -16,7 +16,7 @@ function trenutniTeden() {
 }
 
 function vrednostPortfelja() {
-  var vrednost = 10 * nlbr + 12 * krka + 2 * tlsg;
+  var vrednost = 10 * nlbr + 12 * krka + 3 * tlsg;
   var vrednostText = vrednost.toLocaleString("de-DE", {
     minimumFractionDigits: 1,
     maximumFractionDigits: 1,
@@ -90,10 +90,10 @@ const stocks = [
   },
   {
     name: "TLSG",
-    startingPrice: 87.00,
-    endingPrice: krka,
-    shares: 2,
-    costs: 2,
+    startingPrice: 88.33,
+    endingPrice: tlsg,
+    shares: 3,
+    costs: 3,
     dividends: 0,
   },
 ];
