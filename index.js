@@ -2,7 +2,7 @@ var startDate = new Date("2024-09-02");
 var today = Date.now();
 
 var nlbr = 139.00;
-var krka = 171.00;
+var krka = 169.50;
 var tlsg = 89.0;
 
 function trenutniTeden() {
