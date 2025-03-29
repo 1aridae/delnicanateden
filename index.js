@@ -1,10 +1,6 @@
 var startDate = new Date("2024-09-02");
 var today = Date.now();
 
-var nlbr = 142.50;
-var krka = 169.00;
-var tlsg = 90.0;
-
 function trenutniTeden() {
   var diff = today - startDate;
   var diffcweeks = Math.ceil(diff / 1000 / 60 / 60 / 24 / 7);
@@ -15,18 +11,6 @@ function trenutniTeden() {
   );
 }
 
-function vrednostPortfelja() {
-  var vrednost = 10 * nlbr + 12 * krka + 8 * tlsg;
-  var vrednostText = vrednost.toLocaleString("de-DE", {
-    minimumFractionDigits: 1,
-    maximumFractionDigits: 1,
-  });
-
-  $("#portfelj > div > div > div:nth-child(2) > div > div.card-body > h1").text(
-    vrednostText + " €"
-  );
-}
-
 function naslednjiNakup() {
   var naslnakup = new Date();
   naslnakup.setDate(naslnakup.getDate() + ((1 + 7 - naslnakup.getDay()) % 7));
@@ -34,6 +18,22 @@ function naslednjiNakup() {
 
   $("#portfelj > div > div > div:nth-child(4) > div > div.card-body > h1").text(
     naslnakupText
+  );
+}
+
+function vrednostPortfelja() {
+  var vrednost = stocks.reduce(
+    (total, stock) => total + stock.endingPrice * stock.shares,
+    0
+  );
+
+  var vrednostText = vrednost.toLocaleString("de-DE", {
+    minimumFractionDigits: 1,
+    maximumFractionDigits: 1,
+  });
+
+  $("#portfelj > div > div > div:nth-child(2) > div > div.card-body > h1").text(
+    vrednostText + " €"
   );
 }
 
@@ -71,27 +71,91 @@ function calculatePortfolio(stocks) {
   return totalReturn;
 }
 
+function calculateTotalDividends(stocks) {
+  var totalDividends = 0;
+
+  stocks.forEach((stock) => {
+    totalDividends += stock.dividends;
+  });
+
+  var dividende = totalDividends.toLocaleString("de-DE", {
+    minimumFractionDigits: 1,
+    maximumFractionDigits: 1,
+  });
+
+  $("#portfelj > div > div > div:nth-child(6) > div > div.card-body > h1").text(
+    dividende + " €"
+  );
+}
+
+function totalYield(stocks) {
+  const portfolioValue = stocks.reduce(
+    (total, stock) => total + stock.endingPrice * stock.shares,
+    0
+  );
+
+  const totalDividends = stocks.reduce(
+    (totalDividends, stock) => totalDividends + stock.dividends,
+    0
+  );
+
+  let totalStartingValue = 0;
+  let totalWeightedContribution = 0;
+
+  stocks.forEach((stock) => {
+    const startingValue = stock.startingPrice * stock.shares;
+    const endingValue = stock.endingPrice * stock.shares;
+    const endingValueMinusCosts = endingValue - stock.costs;
+
+    const individualReturn = (
+      endingValueMinusCosts / startingValue -
+      1
+    ).toFixed(4);
+
+    totalStartingValue += startingValue;
+    stock.startingValue = startingValue;
+    stock.endingValue = endingValue;
+    stock.endingValueMinusCosts = endingValueMinusCosts;
+    stock.individualReturn = parseFloat(individualReturn);
+  });
+
+  stocks.forEach((stock) => {
+    stock.weight = (stock.startingValue / totalStartingValue).toFixed(4);
+    stock.weightedContribution = (
+      stock.weight * stock.individualReturn
+    ).toFixed(4);
+    totalWeightedContribution += parseFloat(stock.weightedContribution);
+  });
+
+  const totalYield = (
+    ((portfolioValue + totalDividends) / totalStartingValue - 1) *
+    100
+  ).toFixed(2);
+
+  return totalYield;
+}
+
 const stocks = [
   {
     name: "NLB",
     startingPrice: 123.05,
-    endingPrice: nlbr,
+    endingPrice: 142.5,
     shares: 10,
     costs: 12.3,
-    dividends: 0,
+    dividends: 41.25,
   },
   {
     name: "KRKA",
     startingPrice: 141.08,
-    endingPrice: krka,
+    endingPrice: 169.0,
     shares: 12,
-    costs: 17.10,
+    costs: 17.1,
     dividends: 0,
   },
   {
     name: "TLSG",
     startingPrice: 89.88,
-    endingPrice: tlsg,
+    endingPrice: 90.0,
     shares: 8,
     costs: 8,
     dividends: 0,
@@ -101,9 +165,14 @@ const stocks = [
 trenutniTeden();
 naslednjiNakup();
 vrednostPortfelja();
+calculateTotalDividends(stocks);
 calculatePortfolio(stocks);
-
+totalYield(stocks);
 
 $("#rast-portfelja")
   .text(calculatePortfolio(stocks).toString().replace(".", ",") + " %")
   .css("color", parseFloat(calculatePortfolio(stocks)) > 0 ? "green" : "red");
+
+$("#totalYield")
+  .text(totalYield(stocks).toString().replace(".", ",") + " %")
+  .css("color", parseFloat(totalYield(stocks)) > 0 ? "green" : "red");
