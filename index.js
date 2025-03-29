@@ -1,9 +1,7 @@
 var startDate = new Date("2024-09-02");
 var today = Date.now();
 
-var nlbr = 142.50;
-var krka = 169.00;
-var tlsg = 90.0;
+
 
 function trenutniTeden() {
   var diff = today - startDate;
@@ -15,18 +13,6 @@ function trenutniTeden() {
   );
 }
 
-function vrednostPortfelja() {
-  var vrednost = 10 * nlbr + 12 * krka + 8 * tlsg;
-  var vrednostText = vrednost.toLocaleString("de-DE", {
-    minimumFractionDigits: 1,
-    maximumFractionDigits: 1,
-  });
-
-  $("#portfelj > div > div > div:nth-child(2) > div > div.card-body > h1").text(
-    vrednostText + " €"
-  );
-}
-
 function naslednjiNakup() {
   var naslnakup = new Date();
   naslnakup.setDate(naslnakup.getDate() + ((1 + 7 - naslnakup.getDay()) % 7));
@@ -34,6 +20,22 @@ function naslednjiNakup() {
 
   $("#portfelj > div > div > div:nth-child(4) > div > div.card-body > h1").text(
     naslnakupText
+  );
+}
+
+function vrednostPortfelja() {
+  var vrednost = stocks.reduce(
+    (total, stock) => total + stock.endingPrice * stock.shares,
+    0
+  );
+
+  var vrednostText = vrednost.toLocaleString("de-DE", {
+    minimumFractionDigits: 1,
+    maximumFractionDigits: 1,
+  });
+
+  $("#portfelj > div > div > div:nth-child(2) > div > div.card-body > h1").text(
+    vrednostText + " €"
   );
 }
 
@@ -75,7 +77,7 @@ const stocks = [
   {
     name: "NLB",
     startingPrice: 123.05,
-    endingPrice: nlbr,
+    endingPrice: 142.50,
     shares: 10,
     costs: 12.3,
     dividends: 0,
@@ -83,7 +85,7 @@ const stocks = [
   {
     name: "KRKA",
     startingPrice: 141.08,
-    endingPrice: krka,
+    endingPrice: 169.0,
     shares: 12,
     costs: 17.10,
     dividends: 0,
@@ -91,7 +93,7 @@ const stocks = [
   {
     name: "TLSG",
     startingPrice: 89.88,
-    endingPrice: tlsg,
+    endingPrice: 90.0,
     shares: 8,
     costs: 8,
     dividends: 0,
