@@ -162,7 +162,7 @@ const stocks = [
   },
   {
     name: "PETG",
-    startingPrice: 40.10,
+    startingPrice: 43.00,
     endingPrice: 41.0,
     shares: 1,
     costs: 0.5,
