@@ -1,7 +1,7 @@
 var startDate = new Date("2024-09-02");
-var today = Date.now();
 
 function trenutniTeden() {
+  var today = Date.now();
   var diff = today - startDate;
   var diffcweeks = Math.ceil(diff / 1000 / 60 / 60 / 24 / 7);
   var sdiffcweeks = diffcweeks + "/" + "52";
@@ -37,38 +37,17 @@ function vrednostPortfelja() {
   );
 }
 
-function calculatePortfolio(stocks) {
-  let totalStartingValue = 0;
-  let totalWeightedContribution = 0;
+function calculateSimplePortfolioReturn(stocks) {
+  const totalStarting = stocks.reduce(
+    (sum, stock) => sum + stock.startingPrice * stock.shares,
+    0
+  );
+  const totalEnding = stocks.reduce(
+    (sum, stock) => sum + stock.endingPrice * stock.shares - stock.costs,
+    0
+  );
 
-  stocks.forEach((stock) => {
-    const startingValue = stock.startingPrice * stock.shares;
-    const endingValue = stock.endingPrice * stock.shares;
-    const endingValueMinusCosts = endingValue - stock.costs;
-
-    const individualReturn = (
-      endingValueMinusCosts / startingValue -
-      1
-    ).toFixed(4);
-
-    totalStartingValue += startingValue;
-    stock.startingValue = startingValue;
-    stock.endingValue = endingValue;
-    stock.endingValueMinusCosts = endingValueMinusCosts;
-    stock.individualReturn = parseFloat(individualReturn);
-  });
-
-  stocks.forEach((stock) => {
-    stock.weight = (stock.startingValue / totalStartingValue).toFixed(4);
-    stock.weightedContribution = (
-      stock.weight * stock.individualReturn
-    ).toFixed(4);
-
-    totalWeightedContribution += parseFloat(stock.weightedContribution);
-  });
-
-  const totalReturn = (totalWeightedContribution * 100).toFixed(2);
-  return totalReturn;
+  return ((totalEnding / totalStarting) - 1) * 100;
 }
 
 function calculateTotalDividends(stocks) {
@@ -100,38 +79,13 @@ function totalYield(stocks) {
   );
 
   let totalStartingValue = 0;
-  let totalWeightedContribution = 0;
 
   stocks.forEach((stock) => {
     const startingValue = stock.startingPrice * stock.shares;
-    const endingValue = stock.endingPrice * stock.shares;
-    const endingValueMinusCosts = endingValue - stock.costs;
-
-    const individualReturn = (
-      endingValueMinusCosts / startingValue -
-      1
-    ).toFixed(4);
-
     totalStartingValue += startingValue;
-    stock.startingValue = startingValue;
-    stock.endingValue = endingValue;
-    stock.endingValueMinusCosts = endingValueMinusCosts;
-    stock.individualReturn = parseFloat(individualReturn);
   });
 
-  stocks.forEach((stock) => {
-    stock.weight = (stock.startingValue / totalStartingValue).toFixed(4);
-    stock.weightedContribution = (
-      stock.weight * stock.individualReturn
-    ).toFixed(4);
-    totalWeightedContribution += parseFloat(stock.weightedContribution);
-  });
-
-  const totalYield = (
-    ((portfolioValue + totalDividends) / totalStartingValue - 1) *
-    100
-  ).toFixed(2);
-
+  const totalYield = ((portfolioValue + totalDividends) / totalStartingValue - 1) * 100;
   return totalYield;
 }
 
@@ -139,7 +93,7 @@ const stocks = [
   {
     name: "NLB",
     startingPrice: 123.05,
-    endingPrice: 129.5,
+    endingPrice: 122.5,
     shares: 10,
     costs: 12.3,
     dividends: 41.25,
@@ -147,7 +101,7 @@ const stocks = [
   {
     name: "KRKA",
     startingPrice: 141.08,
-    endingPrice: 166.00,
+    endingPrice: 158.0,
     shares: 12,
     costs: 17.1,
     dividends: 0,
@@ -155,17 +109,17 @@ const stocks = [
   {
     name: "TLSG",
     startingPrice: 89.88,
-    endingPrice: 89.50,
+    endingPrice: 83.0,
     shares: 8,
     costs: 8,
     dividends: 0,
   },
   {
     name: "PETG",
-    startingPrice: 43.00,
-    endingPrice: 40.10,
-    shares: 1,
-    costs: 0.5,
+    startingPrice: 40.30,
+    endingPrice: 38.20,
+    shares: 2,
+    costs: 0.9,
     dividends: 0,
   },
 ];
@@ -174,13 +128,14 @@ trenutniTeden();
 naslednjiNakup();
 vrednostPortfelja();
 calculateTotalDividends(stocks);
-calculatePortfolio(stocks);
-totalYield(stocks);
+
+const simpleReturn = calculateSimplePortfolioReturn(stocks);
+const yieldWithDividends = totalYield(stocks);
 
 $("#rast-portfelja")
-  .text(calculatePortfolio(stocks).toString().replace(".", ",") + " %")
-  .css("color", parseFloat(calculatePortfolio(stocks)) > 0 ? "green" : "red");
+  .text(simpleReturn.toFixed(2).toString().replace(".", ",") + " %")
+  .css("color", simpleReturn > 0 ? "green" : "red");
 
 $("#totalYield")
-  .text(totalYield(stocks).toString().replace(".", ",") + " %")
-  .css("color", parseFloat(totalYield(stocks)) > 0 ? "green" : "red");
+  .text(yieldWithDividends.toFixed(2).toString().replace(".", ",") + " %")
+  .css("color", yieldWithDividends > 0 ? "green" : "red");
