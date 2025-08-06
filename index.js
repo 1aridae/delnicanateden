@@ -93,7 +93,7 @@ const stocks = [
   {
     name: "NLB",
     startingPrice: 123.05,
-    endingPrice: 166.5,
+    endingPrice: 165.5,
     shares: 10,
     costs: 12.3,
     dividends: 41.3 + 48.2, //neto dividende
@@ -101,7 +101,7 @@ const stocks = [
   {
     name: "KRKA",
     startingPrice: 141.08,
-    endingPrice: 199.50,
+    endingPrice: 196.50,
     shares: 12,
     costs: 17.1,
     dividends: 74.3,
@@ -109,7 +109,7 @@ const stocks = [
   {
     name: "TLSG",
     startingPrice: 89.88,
-    endingPrice: 94.50,
+    endingPrice: 98,
     shares: 8,
     costs: 8,
     dividends: 0,
@@ -117,17 +117,17 @@ const stocks = [
   {
     name: "PETG",
     startingPrice: 44.42,
-    endingPrice: 55.0,
+    endingPrice: 52.60,
     shares: 12,
     costs: 5.4,
-    dividends: 0,
+    dividends: 18.9,
   },
   {
     name: "CICG",
-    startingPrice: 34.54,
-    endingPrice: 32.0,
-    shares: 6,
-    costs: 2.1,
+    startingPrice: 34.2,
+    endingPrice: 33.0,
+    shares: 7,
+    costs: 2.4,
     dividends: 1.4,
   }
 ];
