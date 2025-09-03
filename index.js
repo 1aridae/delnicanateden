@@ -133,7 +133,7 @@ const stocks = [
 ];
 
 trenutniTeden();
-naslednjiNakup();
+//naslednjiNakup();
 vrednostPortfelja();
 calculateTotalDividends(stocks);
 
