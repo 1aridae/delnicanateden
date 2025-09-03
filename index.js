@@ -11,6 +11,7 @@ function trenutniTeden() {
   );
 }
 
+/*
 function naslednjiNakup() {
   var naslnakup = new Date();
   naslnakup.setDate(naslnakup.getDate() + ((1 + 7 - naslnakup.getDay()) % 7));
@@ -20,6 +21,7 @@ function naslednjiNakup() {
     naslnakupText
   );
 }
+*/
 
 function vrednostPortfelja() {
   var vrednost = stocks.reduce(
