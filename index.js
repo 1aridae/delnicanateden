@@ -72,24 +72,11 @@ function totalYield(stocks) {
     (sum, stock) => sum + stock.startingPrice * stock.shares + stock.costs,
     0
   );
-
   const totalEnding = stocks.reduce(
     (sum, stock) => sum + stock.endingPrice * stock.shares + stock.dividends,
     0
   );
-
   return ((totalEnding / totalStarting) - 1) * 100;
-}
-
-  let totalStartingValue = 0;
-
-  stocks.forEach((stock) => {
-    const startingValue = stock.startingPrice * stock.shares;
-    totalStartingValue += startingValue;
-  });
-
-  const totalYield = ((portfolioValue + totalDividends) / totalStartingValue - 1) * 100;
-  return totalYield;
 }
 
 const stocks = [
