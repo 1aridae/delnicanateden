@@ -39,11 +39,11 @@ function vrednostPortfelja() {
 
 function calculateSimplePortfolioReturn(stocks) {
   const totalStarting = stocks.reduce(
-    (sum, stock) => sum + stock.startingPrice * stock.shares,
+    (sum, stock) => sum + stock.startingPrice * stock.shares + stock.costs,
     0
   );
   const totalEnding = stocks.reduce(
-    (sum, stock) => sum + stock.endingPrice * stock.shares - stock.costs,
+    (sum, stock) => sum + stock.endingPrice * stock.shares,
     0
   );
 
@@ -68,15 +68,18 @@ function calculateTotalDividends(stocks) {
 }
 
 function totalYield(stocks) {
-  const portfolioValue = stocks.reduce(
-    (total, stock) => total + stock.endingPrice * stock.shares,
+  const totalStarting = stocks.reduce(
+    (sum, stock) => sum + stock.startingPrice * stock.shares + stock.costs,
     0
   );
 
-  const totalDividends = stocks.reduce(
-    (totalDividends, stock) => totalDividends + stock.dividends,
+  const totalEnding = stocks.reduce(
+    (sum, stock) => sum + stock.endingPrice * stock.shares + stock.dividends,
     0
   );
+
+  return ((totalEnding / totalStarting) - 1) * 100;
+}
 
   let totalStartingValue = 0;
 
