@@ -86,7 +86,7 @@ const stocks = [
     endingPrice: 209.0,
     shares: 10,
     costs: 12.3,
-    dividends: 41.3 + 48.2, //neto dividende
+    dividends: 41.3 + 48.2 + 48.2, //neto dividende
   },
   {
     name: "KRKA",
