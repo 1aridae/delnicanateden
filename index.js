@@ -115,7 +115,7 @@ const stocks = [
   {
     name: "CICG",
     startingPrice: 34.0,
-    endingPrice: 30.70,
+    endingPrice: 30.40,
     shares: 10,
     costs: 3.3,
     dividends: 1.4 + 13.5, // 27.06.25, 30.06.26
