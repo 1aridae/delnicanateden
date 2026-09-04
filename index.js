@@ -86,7 +86,7 @@ const stocks = [
     endingPrice: 229.0,
     shares: 10,
     costs: 12.3,
-    dividends: 41.3 + 48.2 + 48.2, //neto dividende
+    dividends: 41.3 + 48.2 + 48.2 + 51.9, // neto dividende: 17.12.24, 24.06.25, 23.12.25, 23.06.26
   },
   {
     name: "KRKA",
@@ -94,7 +94,7 @@ const stocks = [
     endingPrice: 259.50,
     shares: 12,
     costs: 17.1,
-    dividends: 74.3,
+    dividends: 74.3 + 81.9, // 24.07.25, 23.07.26
   },
   {
     name: "TLSG",
@@ -102,7 +102,7 @@ const stocks = [
     endingPrice: 153.0,
     shares: 8,
     costs: 8,
-    dividends: 24,
+    dividends: 24 + 27.6, // 22.08.25, 26.08.26
   },
   {
     name: "PETG",
@@ -110,7 +110,7 @@ const stocks = [
     endingPrice: 64.0,
     shares: 12,
     costs: 5.4,
-    dividends: 18.9,
+    dividends: 18.9 + 22.5, // 1.08.25, 31.07.26
   },
   {
     name: "CICG",
@@ -118,7 +118,7 @@ const stocks = [
     endingPrice: 30.70,
     shares: 10,
     costs: 3.3,
-    dividends: 1.4,
+    dividends: 1.4 + 13.5, // 27.06.25, 30.06.26
   }
 ];
 
